@@ -9,6 +9,8 @@
     body {
       margin: 0;
       padding: 0;
+      display: flex;
+      align-items: stretch;
     }
     ul {
       list-style-type: none;
@@ -20,7 +22,9 @@
     }
 
     .wrapper {
-      margin: 10px 0 20px 10px;
+      margin: 20px 10px 20px 10px;
+      display: inline-block;
+      width: 400px;
     }
     .size-options, .clarity-options {
       display: block;
@@ -93,6 +97,13 @@
     .m-b-10 {
       margin-bottom: 10px;
     }
+    .instruction {
+      display: inline-block;
+      width: 400px;
+    }
+    strong {
+      color: brown;
+    }
   </style>
 </head>
 <body>
@@ -156,6 +167,30 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="instruction">
+    <h4>脱机版图片压缩：使用说明</h4>
+    <p class="tips">
+      1.选择图片尺寸，选择保持原生尺寸则保持原生图片比例，填最大宽度即可。
+      <br/>
+      选择自定义尺寸则可自定义图片宽高，完全由自己决定
+    </p>
+    <span class="arrow"></span>
+    <p class="tips">
+      2.选择图片质量，<strong>注意：只有JPG格式可以调整图片质量，PNG格式无法调整</strong>
+    </p>
+    <span class="arrow"></span>
+    <p class="tips">
+      3.上传图片
+    </p>
+    <span class="arrow"></span>
+    <p class="tips">
+      4.下载图片
+    </p>
+    <span class="arrow"></span>
+    <p class="tips">
+      5.<strong>注意：修改配置后需重新上传图片才可生效</strong>
+    </p>
   </div>
   
   <script>
