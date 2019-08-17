@@ -129,7 +129,7 @@
       </ul>
     </div>
     <div class="clarity-options">
-      <p class="sub-title">导出图片尺寸</p>
+      <p class="sub-title">导出选项</p>
       <ul>
         <li>
           <input name="fileType" type="radio" value="jpeg" checked onChange="clarityWeightChange(value)">
@@ -181,9 +181,6 @@
     const context = canvas.getContext('2d');
     const eleLink = document.createElement('a');
     eleLink.style.display = 'none';
-    let targetWidth = 0;
-    let targetHeight = 0;
-    let compressType = 'origin';
     let imgType = 'jpeg';
     let originWidth = 0;
     let originHeight = 0;
@@ -191,16 +188,6 @@
     //  获取在线图片地址
     const getOnlineImage = (value) => {
       img.src = value;
-    }
-
-    // 隐藏展示输入框
-    const compressTypeChange = (value) => {
-      compressType = value.substr(0,value.length-4);
-      const allDetailOptions = document.getElementsByClassName("detail-option");
-      for (let index = 0; index < allDetailOptions.length; index++) {
-        allDetailOptions[index].classList.toggle('hidden');
-      }
-      updateImage()
     }
 
     // 隐藏图片质量输入条
@@ -215,9 +202,8 @@
       document.getElementById('file').click();
     }
 
-    // base64地址图片加载完毕后
+    // 获取图片原始尺寸
     img.onload = (image) => {
-      // 获取图片原始尺寸
       originWidth = +image.path[0].width;
       originHeight = +image.path[0].height;
       // 压缩图片
@@ -228,7 +214,7 @@
     reader.onload = function(e) {
       img.src = e.target.result;
     };
-    // 展示压缩后图片
+    // 读取原始文件信息
     eleFile.addEventListener('change', (event) => {
       reader.readAsDataURL(event.target.files[0]);
       const fileInfo = event.target.files[0];
@@ -247,7 +233,7 @@
       // 要求把3个8位字节（3*8=24）转化为4个6位的字节（4*6=24），之后在6位的前面补两个0，形成8位一个字节的形式。 如果剩下的字符不足3个字节，用0填充，输出字符使用’=’，因此编码后输出的文本末尾可能会出现1或2个’=’
       //  去掉无用头部信息（data:image/png;base64,）
       let baseStr=base64Url.substring(base64Url.indexOf('base64,')+'base64,'.length);
-      //  去掉”=“
+      // 去掉”=“
       baseStr = baseStr.replace(/=/gi, '');
       // 进行计算
       const strLen=baseStr.length;
@@ -255,6 +241,8 @@
     }
 
     const updateImage = () => {
+      let targetWidth = 0;
+      let targetHeight = 0;
       const customWidth = +document.getElementById('custom-width').value;
       const customHeight = +document.getElementById('custom-height').value;
       //  判断宽高填写的四种情况
